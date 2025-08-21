@@ -6,6 +6,8 @@ gemini_key = os.getenv("GEMINI_API_KEY")
 os.environ["GOOGLE_API_KEY"] = gemini_key  # langchain_google_genai expects this
 genai.api_key = gemini_key
 
+
+
 from typing import Dict, List
 
 import streamlit as st
@@ -22,9 +24,28 @@ from open_notebook.plugins.podcasts import (
 )
 from pages.stream_app.utils import setup_page
 
+from open_notebook.domain.models import DefaultModels, Model
+
+# find the model
+m = None
+for model in Model.get_all():
+    if model.provider == "google" and model.type == "text_to_speech" and "gemini-2.0-flash" in model.name:
+        m = model
+        break
+if m:
+    defaults = DefaultModels()
+    defaults.default_text_to_speech_model = m.id
+    defaults.update()
+    print("Default TTS set to", m.name)
+else:
+    print("No GEMINI TTS model found")
+
+
+
 setup_page("🎙️ Podcasts", only_check_mandatory_models=False)
 
 text_to_speech_models = Model.get_models_by_type("text_to_speech")
+
 
 provider_models: Dict[str, List[str]] = {}
 
@@ -35,13 +56,13 @@ for model in text_to_speech_models:
 
 # Only Gemini language models for transcript:
 text_models = [
-    m for m in Model.get_models_by_type("language")
-    if m.provider == "gemini"
+    m for m in Model.get_models_by_type("text_to_speech")
+    if m.provider == "google"
 ]
 
 
 transcript_provider_models = {
-    "gemini": [m.name for m in text_models]
+    "google": [m.name for m in text_models]
 }
 
 
@@ -119,10 +140,10 @@ with templates_tab:
             "Ending Message", placeholder="Thank you for listening!"
         )
         # Hardcode provider to Gemini:
-        pd_cfg["transcript_model_provider"] = "gemini"
+        pd_cfg["transcript_model_provider"] = "google"
         pd_cfg["transcript_model"] = st.selectbox(
             "Transcript Model",
-            transcript_provider_models["gemini"],
+            transcript_provider_models["google"],
         )
 
         pd_cfg["provider"] = st.selectbox(

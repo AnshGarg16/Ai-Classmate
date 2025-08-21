@@ -107,9 +107,12 @@ class PodcastConfig(ObjectModel):
             elif self.transcript_model_provider == "anthropic":
                 api_key_label = "ANTHROPIC_API_KEY"
                 llm_model_name = self.transcript_model
-            elif self.transcript_model_provider == "gemini":
+            # ... inside generate_episode method
+            elif self.transcript_model_provider == "google":
                 api_key_label = "GOOGLE_API_KEY"
-                llm_model_name = self.transcript_model
+                # This is the key change:
+                # We now force the use of the latest Gemini Flash model.
+                llm_model_name = "gemini-2.5-flash"
 
         if self.provider == "google":
             tts_model = "gemini"

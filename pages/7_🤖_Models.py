@@ -295,35 +295,35 @@ with st.container(border=True):
     with col2:
         add_model_form("text_to_speech", "main")
 
-# Speech-to-Text Models Section
-st.subheader("🎤 Speech-to-Text Models")
-with st.container(border=True):
-    col1, col2 = st.columns([2, 1])
+# # Speech-to-Text Models Section
+# st.subheader("🎤 Speech-to-Text Models")
+# with st.container(border=True):
+#     col1, col2 = st.columns([2, 1])
 
-    with col1:
-        st.markdown("**Configured Models**")
-        stt_models = models_by_type["speech_to_text"]
-        if stt_models:
-            for model in stt_models:
-                subcol1, subcol2 = st.columns([4, 1])
-                with subcol1:
-                    st.markdown(f"• {model.provider}/{model.name}")
-                with subcol2:
-                    if st.button(
-                        "🗑️", key=f"delete_stt_{model.id}", help="Delete model"
-                    ):
-                        model.delete()
-                        st.rerun()
-        else:
-            st.info("No speech-to-text models configured")
+#     with col1:
+#         st.markdown("**Configured Models**")
+#         stt_models = models_by_type["speech_to_text"]
+#         if stt_models:
+#             for model in stt_models:
+#                 subcol1, subcol2 = st.columns([4, 1])
+#                 with subcol1:
+#                     st.markdown(f"• {model.provider}/{model.name}")
+#                 with subcol2:
+#                     if st.button(
+#                         "🗑️", key=f"delete_stt_{model.id}", help="Delete model"
+#                     ):
+#                         model.delete()
+#                         st.rerun()
+#         else:
+#             st.info("No speech-to-text models configured")
 
-        handle_default_selection(
-            "Default STT Model",
-            "default_speech_to_text_model",
-            default_models.default_speech_to_text_model,
-            "Used for audio transcriptions",
-            "speech_to_text",
-        )
+#         handle_default_selection(
+#             "Default STT Model",
+#             "default_speech_to_text_model",
+#             default_models.default_speech_to_text_model,
+#             "Used for audio transcriptions",
+#             "speech_to_text",
+#         )
 
-    with col2:
-        add_model_form("speech_to_text", "main")
+#     with col2:
+#         add_model_form("speech_to_text", "main")

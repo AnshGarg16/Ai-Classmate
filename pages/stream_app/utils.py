@@ -169,7 +169,7 @@ def setup_page(
     check_models(
         only_mandatory=only_check_mandatory_models, stop_on_error=stop_on_model_error
     )
-    version_sidebar()
+    # version_sidebar()
 
 
 def convert_source_references(text):
