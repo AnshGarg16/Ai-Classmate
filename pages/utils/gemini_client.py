@@ -37,7 +37,7 @@ def configure_gemini_client():
     """
     try:
         # st.secrets is Streamlit's native way to handle secrets in deployed apps
-        api_key = st.secrets.get("AIzaSyDuWz1Hkmi2HFk9TlmdIgoIC7ztKpkmkPQ")
+        api_key = st.secrets.get("")
         
         if not api_key:
             # Fallback to environment variable (for local Docker)
