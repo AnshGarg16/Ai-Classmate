@@ -1,48 +1,19 @@
-<a id="readme-top"></a>
 
-<!-- [![Contributors][contributors-shield]][contributors-url] -->
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
-
-
-<!-- PROJECT LOGO -->
-<br />
 <div align="center">
   <a href="https://github.com/lfnovo/open-notebook">
     <img src="docs/assets/hero.svg" alt="Logo">
   </a>
 
-  <h3 align="center">Open Notebook</h3>
+  <h3 align="center">AIClassmate</h3>
 
   <p align="center">
     An open source, privacy-focused alternative to Google's Notebook LM!
-    <br /><strong>Join our <a href="https://discord.gg/37XJPXfz2w">Discord server</a> for help, to share workflow ideas, and suggest features!</strong>
-    <br />
-    <a href="https://www.open-notebook.ai"><strong>Checkout our website »</strong></a>
-    <br />
     <br />
     <a href="https://www.open-notebook.ai/get-started.html">Get Started (Setup)</a>
     ·
     <a href="https://www.open-notebook.ai/features.html">Features</a>
   </p>
 </div>
-
-
-## 📢 Open Notebook is under very active development
-
-> Open Notebook is under active development! We're moving fast and making improvements every week. Your feedback is incredibly valuable to me during this exciting phase and it gives me motivation to keep improving and building this amazing tool. Please feel free to star the project if you find it useful, and don't hesitate to reach out with any questions or suggestions. I'm excited to see how you'll use it and what ideas you'll bring to the project! Let's build something amazing together! 🚀
->
-> ⚠️ **API Changes**: As we optimize and enhance the project, some APIs and interfaces might change. We'll do our best to document these changes and minimize disruption.
->
-> 🙏 **We Need Your Feedback**: Please try out Open Notebook and let us know what you think! Submit issues, feature requests, or just share your experience through:
-> - GitHub Issues
-> - Discussions
-> - Pull Requests
->
-> Together, we can make it even better! 
 
 
 <!-- TABLE OF CONTENTS -->
@@ -84,9 +55,8 @@ An open source, privacy-focused alternative to Google's Notebook LM. Why give Go
 
 In a world dominated by Artificial Intelligence, having the ability to think 🧠 and acquire new knowledge 💡, is a skill that should not be a privilege for a few, nor restricted to a single provider.
 
-Open Notebook empowers you to manage your research, generate AI-assisted notes, and interact with your content—on your terms.
+AIClassmate empowers you to manage your research, generate AI-assisted notes, and interact with your content—on your terms.
 
-Learn more about our project at [https://www.open-notebook.ai](https://www.open-notebook.ai)
 
 
 
@@ -168,64 +138,6 @@ Then run the Streamlit application:
 uv run --env-file .env streamlit run app_home.py
 ```
 
-## Provider Support Matrix
-
-Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we support this providers out of the box!
-
-| Provider     | LLM Support | Embedding Support | Speech-to-Text | Text-to-Speech |
-|--------------|-------------|------------------|----------------|----------------|
-| OpenAI       | ✅          | ✅               | ✅             | ✅             |
-| Anthropic    | ✅          | ❌               | ❌             | ❌             |
-| Groq         | ✅          | ❌               | ✅             | ❌             |
-| Google (GenAI) | ✅          | ✅               | ❌             | ✅             |
-| Vertex AI    | ✅          | ✅               | ❌             | ✅             |
-| Ollama       | ✅          | ✅               | ❌             | ❌             |
-| Perplexity   | ✅          | ❌               | ❌             | ❌             |
-| ElevenLabs   | ❌          | ❌               | ✅             | ✅             |
-| Azure OpenAI | ✅          | ✅               | ❌             | ❌             |
-| Mistral      | ✅          | ✅               | ❌             | ❌             |
-| DeepSeek     | ✅          | ❌               | ❌             | ❌             |
-| Voyage       | ❌          | ✅               | ❌             | ❌             |
-| xAI          | ✅          | ❌               | ❌             | ❌             |
-| OpenRouter   | ✅          | ❌               | ❌             | ❌             |
-
-### Common Issues and Solutions
-
-If you encounter a port already in use error:
-```
-Port 8502 is already in use
-```
-
-Find and stop the running process:
-```bash
-# Find the process using port 8502
-lsof -i :8502
-
-# Kill the process (replace PID with the actual process ID)
-kill -9 PID
-```
-
-Or specify a different port:
-```bash
-uv run --env-file .env streamlit run app_home.py --server.port=8503
-```
-
-### Running with Docker
-
-If you don't want to mess around with the code and just want to run it as a docker image:
-
-```bash
-docker compose --profile multi up
-```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Usage
-
-Go to the [Usage](docs/USAGE.md) page to learn how to use all features.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Features
 
 - **Multi-Notebook Support**: Organize your research across multiple notebooks effortlessly.
@@ -269,55 +181,6 @@ Locate anything across your research with ease using full-text and vector-based 
 ### 💬 Powerful open prompts
 
 Jinja based prompts that are easy to customize to your own preferences.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] **Live Front-End Updates**: Real-time UI updates for a smoother experience.
-- [ ] **Async Processing**: Faster UI through asynchronous content processing.
-- [ ] **Cross-Notebook Sources and Notes**: Reuse research notes across projects.
-- [ ] **Bookmark Integration**: Integrate with your favorite bookmarking app.
-- ✅ **Multi-model support**: Open AI, Anthropic, Vertex AI, Open Router, Ollama, etc.
-- ✅ **Insight Generation**: New tools for creating insights - [transformations](docs/TRANSFORMATIONS.md)
-- ✅ **Podcast Generator**: Automatically convert your notes into a podcast format. 
-- ✅ **Multiple Chat Sessions**: Juggle different discussions within the same notebook.
-- ✅ **Enhanced Citations**: Improved layout and finer control for citations.
-- ✅ **Better Embeddings & Summarization**: Smarter ways to distill information.
-
-See the [open issues](https://github.com/lfnovo/open-notebook/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-We would love your contributions! Specifically, we're looking for help with:
-- **Front-End Development**: Improve the UI/UX by moving beyond Streamlit.
-- **Testing & Bug Fixes**: Help make Open Notebook more robust.
-- **Feature Development**: Let’s make the coolest note-taking tool together!
-
-See more at [CONTRIBUTING](CONTRIBUTING.md)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- LICENSE -->
-## License
-
-Open Notebook is MIT licensed. See the [LICENSE](LICENSE) file for details.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Luis Novo - [@lfnovo](https://twitter.com/lfnovo)
-Join our [Discord server](https://discord.gg/37XJPXfz2w) for help, share workflow ideas, and suggest features.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
