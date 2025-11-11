@@ -43,6 +43,10 @@ dependencies = [
     "ai-prompter>=0.3",
     "esperanto>=2.0.4",
     "langchain-google-vertexai>=2.0.10",
+    "python-magic-bin>=0.4.14",
+    "libmagic",
+    "reportlab",
+    "ffmpeg",
 ]
 
 [tool.setuptools]
