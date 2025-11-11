@@ -121,3 +121,15 @@ desktop.ini
 
 .quarentenaspartan-thunder-462517-n2-65b8049f9832.json
 spartan-thunder-462517-n2-65b8049f9832.json
+
+# Python
+*.pyc
+__pycache__/
+*.egg-info/
+.venv/
+.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store

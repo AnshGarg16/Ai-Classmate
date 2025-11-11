@@ -68,3 +68,4 @@ ENV STREAMLIT_SERVER_HEADLESS=true \
 
 # Default command
 CMD ["uv", "run", "streamlit", "run", "app_home.py"]
+

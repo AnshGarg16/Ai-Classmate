@@ -19,6 +19,13 @@ from pages.stream_app.consts import source_context_icons
 
 nest_asyncio.apply()
 
+# --- QUIZ GENERATION IMPORTS ---
+from open_notebook.domain.quiz import (
+    generate_questions_from_text,
+    save_question_record,
+    embed_and_store_question
+)
+from open_notebook.domain.notebook import Source
 
 @st.dialog("Source", width="large")
 def source_panel_dialog(source_id, notebook_id=None):
@@ -107,22 +114,73 @@ def add_source(notebook_id):
                         }
                     )
                 )
+                # ==================== QUIZ GENERATION (STEP 3) ====================
+                try:
+                    st.write("✨ Generating quiz questions from this source...")
+                    # Fetch the latest saved source (you can also use return value from ainvoke)
+                    sources = Source.get_all()
+                    if sources:
+                        latest_source = sources[0]
+                        text_for_quiz = latest_source.full_text or latest_source.summary
+
+                        # Generate quiz questions with Gemini
+                        questions = generate_questions_from_text(
+                            text_for_quiz,
+                            num_questions=5,
+                            model_id="gemini-2.0-flash-001"  # or from your config
+                        )
+
+                        # Save questions in SurrealDB
+                        for q in questions:
+                            res = save_question_record(q, notebook_id=notebook_id)
+                            created_id = None
+                            if isinstance(res, list) and len(res) > 0 and "result" in res[0] and res[0]["result"]:
+                                created_id = res[0]["result"][0].get("id")
+                            if created_id:
+                                embed_and_store_question(created_id, q["question_text"])
+
+                        st.success(f"✅ {len(questions)} quiz questions generated and saved!")
+            
+                except Exception as e:
+                    st.error(f"⚠️ Quiz generation failed: {e}")
+                # ================================================================
+
+                if st.button("🎯 Generate Quiz from Source"):
+                    try:
+                        sources = Source.get_all()
+                        if sources:
+                            latest_source = sources[0]
+                            text_for_quiz = latest_source.full_text or latest_source.summary
+                            questions = generate_questions_from_text(text_for_quiz, num_questions=5, model_id="gemini-2.0-flash-001")
+                            for q in questions:
+                                res = save_question_record(q, notebook_id=notebook_id)
+                                created_id = None
+                                if isinstance(res, list) and len(res) > 0 and "result" in res[0] and res[0]["result"]:
+                                    created_id = res[0]["result"][0].get("id")
+                                if created_id:
+                                    embed_and_store_question(created_id, q["question_text"])
+                            st.success("🎉 Quiz successfully generated!")
+                    except Exception as e:
+                        st.error(f"Quiz generation failed: {e}")
+                            
+
+
             except UnsupportedTypeException as e:
-                st.warning(
-                    "This type of content is not supported yet. If you think it should be, let us know on the project Issues's page"
-                )
-                st.error(e)
-                st.link_button(
-                    "Go to Github Issues",
-                    url="https://www.github.com/lfnovo/open-notebook/issues",
-                )
-                st.stop()
+                    st.warning(
+                        "This type of content is not supported yet. If you think it should be, let us know on the project Issues's page"
+                    )
+                    st.error(e)
+                    st.link_button(
+                        "Go to Github Issues",
+                        url="https://www.github.com/lfnovo/open-notebook/issues",
+                    )
+                    st.stop()
 
             except Exception as e:
-                st.exception(e)
-                return
+                    st.exception(e)
+                    return
 
-        st.rerun()
+            st.rerun()
 
 
 def source_card(source, notebook_id):
@@ -163,3 +221,5 @@ def source_list_item(source_id, score=None):
             st.write(insight.content)
         if st.button("Edit source", icon="📝", key=f"x_edit_source_{source.id}"):
             source_panel_dialog(source_id=source.id)
+
+
